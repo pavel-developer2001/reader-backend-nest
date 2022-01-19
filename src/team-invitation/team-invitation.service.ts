@@ -28,7 +28,7 @@ export class TeamInvitationService {
         HttpStatus.FORBIDDEN,
       );
     }
-    const addInvitation = await this.repository.create({
+    const addInvitation = await this.repository.save({
       rank: createTeamInvitationDto.rank,
       team: { id: createTeamInvitationDto.teamId },
       user: { id: userId },
@@ -40,8 +40,8 @@ export class TeamInvitationService {
   }
   async removeInvitation(id: number) {
     const invitation = await this.repository.findOne({ where: { id } });
-    await this.repository.delete(invitation.id)
-    return invitation
+    await this.repository.delete(invitation.id);
+    return invitation;
   }
 
   findAll() {

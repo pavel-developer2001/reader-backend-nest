@@ -23,9 +23,10 @@ export class BookMarkService {
       await this.repository.delete(candidate.id);
       return candidate;
     }
-    return this.repository.create({
+    return this.repository.save({
       ...createBookMarkDto,
       user: { id: userId },
+      manga: { id: createBookMarkDto.mangaId },
     });
   }
 
@@ -36,20 +37,23 @@ export class BookMarkService {
   getAllMarksForUser(id: number) {
     return this.repository.find({ where: { user: { id } } });
   }
-  getMarkForManga(id: number, userId: number) {
-    return this.repository.find({ where: { id, user: { id: userId } } });
+  async getMarkForManga(id: number, userId: number) {
+    const book = await this.repository.find({
+      where: { id, user: { id: userId } },
+    });
+    console.log('IDIHVINVDI', book);
+    return book;
   }
 
-  async update(
-    id: number,
-    updateBookMarkDto: UpdateBookMarkDto,
-    userId: number,
-  ) {
-    await this.repository.update(id, {
-      category: updateBookMarkDto.category,
-      user: { id: userId },
-      manga: { id: updateBookMarkDto.mangaId },
-    });
+  async update(updateBookMarkDto: UpdateBookMarkDto, userId: number) {
+    await this.repository.update(
+      { manga: { id: updateBookMarkDto.mangaId }, user: { id: userId } },
+      {
+        category: updateBookMarkDto.category,
+        user: { id: userId },
+        manga: { id: updateBookMarkDto.mangaId },
+      },
+    );
     return this.repository.findOne({
       where: { manga: { id: updateBookMarkDto.mangaId }, user: { id: userId } },
     });

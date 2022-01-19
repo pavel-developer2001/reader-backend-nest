@@ -39,6 +39,6 @@ export class GenreService {
     if (category.length > 0) {
       return category[0];
     }
-    return this.repository.create({ name });
+    return this.repository.save({ name });
   }
 }

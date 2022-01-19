@@ -13,7 +13,7 @@ export class TeamService {
   ) {}
 
   create(createTeamDto: CreateTeamDto, userId: number) {
-    return this.repository.create({ ...createTeamDto, user: { id: userId } });
+    return this.repository.save({ ...createTeamDto, user: { id: userId } });
   }
   async addTeamCover(teamCover: string, id: number) {
     try {
@@ -26,8 +26,6 @@ export class TeamService {
       console.error('error', error);
     }
   }
-
-
 
   findAll() {
     return this.repository.find();

@@ -15,7 +15,7 @@ export class ImagesChapterService {
     mangaId: number,
     userId: number,
   ) {
-    return this.repository.create({
+    return this.repository.save({
       imageChapter,
       user: { id: userId },
       manga: { id: mangaId },

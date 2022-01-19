@@ -25,7 +25,7 @@ export class TeamMangaService {
         HttpStatus.FORBIDDEN,
       );
     }
-    return this.repository.create({
+    return this.repository.save({
       //@ts-ignore
       manga: { id: createTeamMangaDto.mangaId },
       team: { id: createTeamMangaDto.teamId },

@@ -11,12 +11,17 @@ export class TeamMemberService {
     private repository: Repository<TeamMemberEntity>,
   ) {}
 
-  getTeams(id: string) {
-    return this.repository.find({ where: { user: { id } } });
+  async getTeams(id: number) {
+    try {
+      const teams = await this.repository.find({ where: { user: { id } } });
+      return teams;
+    } catch (error) {
+      console.log('EEEEEEEEERRRRRRRRROOOOOR', error);
+    }
   }
 
   async joinToTeam(joinToTeamDto: JoinToTeamDto, userId: number) {
-    const addMember = await this.repository.create({
+    const addMember = await this.repository.save({
       roleInTeam: joinToTeamDto.rank,
       user: { id: userId },
       team: { id: joinToTeamDto.teamId },

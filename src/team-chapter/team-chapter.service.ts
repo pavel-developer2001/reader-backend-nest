@@ -29,7 +29,7 @@ export class TeamChapterService {
         HttpStatus.FORBIDDEN,
       );
     }
-    await this.repository.create({
+    await this.repository.save({
       chapter: { id: chapterId },
       manga: { id: mangaId },
       team: { id: teamId },

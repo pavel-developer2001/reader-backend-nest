@@ -13,8 +13,9 @@ export class CommentMangaService {
   ) {}
 
   create(createCommentMangaDto: CreateCommentMangaDto, userId: number) {
-    return this.repository.create({
+    return this.repository.save({
       ...createCommentMangaDto,
+      manga: { id: createCommentMangaDto.mangaId },
       user: { id: userId },
     });
   }

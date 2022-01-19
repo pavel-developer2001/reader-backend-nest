@@ -22,7 +22,7 @@ export class RatingMangaService {
     if (candidate.length > 0) {
       return candidate;
     }
-    return this.repository.create({
+    return this.repository.save({
       ...createRatingMangaDto,
       user: { id: userId },
     });

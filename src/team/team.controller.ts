@@ -45,7 +45,7 @@ export class TeamController {
     @Body() createTeamDto: CreateTeamDto,
     @User() userId: number,
   ) {
-    const newTeam = this.teamService.create(createTeamDto, userId);
+    const newTeam = await this.teamService.create(createTeamDto, userId);
     await this.cloudinary.uploadTeamCover(file, newTeam.id);
     return this.teamService.findOne(newTeam.id);
   }
@@ -60,9 +60,13 @@ export class TeamController {
     return this.teamService.findOne(+id);
   }
 
-  @Get('user/:id')
-  getAllTeamForUser(@Param('id') id: string) {
-    return this.teamMemberService.getTeams(id);
+  @Get('user')
+  async getAllTeamForUser(@User() userId: number) {
+    try {
+      return await this.teamMemberService.getTeams(userId);
+    } catch (error) {
+      console.error('IHDIHVDIHVIDI', error);
+    }
   }
 
   @UseGuards(JwtAuthGuard)
