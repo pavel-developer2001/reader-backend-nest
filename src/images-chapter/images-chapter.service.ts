@@ -23,8 +23,13 @@ export class ImagesChapterService {
     });
   }
 
-  getImages(id: string) {
-    return this.repository.find({ where: { chapter: id } });
+  async getImages(id: string) {
+    console.log('id', id);
+    const images = await this.repository.find({
+      where: { chapter: { id: id } },
+    });
+    console.log('sdvsa', images);
+    return images;
   }
 
   findAll() {

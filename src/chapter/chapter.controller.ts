@@ -32,6 +32,11 @@ export class ChapterController {
     private cloudinary: CloudinaryService,
   ) {}
 
+  @Get('images/:id')
+  async getAllImagesForChapter(@Param('id') id: string) {
+    return await this.imagesChapterService.getImages(id);
+  }
+
   @UseGuards(JwtAuthGuard)
   @Post('addChapter')
   @UseInterceptors(FilesInterceptor('imagesList[]'))
@@ -75,10 +80,6 @@ export class ChapterController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.chapterService.findOne(+id);
-  }
-  @Get('images/:id')
-  getAllImagesForChapter(@Param('id') id: string) {
-    return this.imagesChapterService.getImages(id);
   }
 
   @Patch(':id')

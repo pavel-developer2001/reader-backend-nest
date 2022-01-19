@@ -87,6 +87,7 @@ export class UserService {
   }
 
   getUser(id: string) {
-    this.repository.findOne({ where: { id } });
+    console.log('ID', id);
+    return this.repository.findOne({ where: { id } });
   }
 }
