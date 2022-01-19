@@ -12,12 +12,16 @@ export class ChapterService {
     private repository: Repository<ChapterEntity>,
   ) {}
 
-  create(createChapterDto: CreateChapterDto, userId: number) {
-    return this.repository.save({
-      ...createChapterDto,
-      user: { id: userId },
-      manga: { id: createChapterDto.mangaId },
-    });
+  async create(createChapterDto: CreateChapterDto, userId: number) {
+    try {
+      return await this.repository.save({
+        ...createChapterDto,
+        user: { id: userId },
+        manga: { id: createChapterDto.mangaId },
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   findAll() {
@@ -36,8 +40,6 @@ export class ChapterService {
       },
     });
   }
-
-
 
   update(id: number, updateChapterDto: UpdateChapterDto) {
     return `This action updates a #${id} chapter`;

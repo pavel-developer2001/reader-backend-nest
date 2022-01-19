@@ -34,27 +34,37 @@ export class ChapterController {
 
   @UseGuards(JwtAuthGuard)
   @Post('addChapter')
-  @UseInterceptors(FilesInterceptor('imagesList'))
+  @UseInterceptors(FilesInterceptor('imagesList[]'))
   async create(
     @UploadedFiles() files: Array<Express.Multer.File>,
     @Body() createChapterDto: CreateChapterDto,
     @User() userId: number,
   ) {
-    const chapter = await this.chapterService.create(createChapterDto, userId);
-    await files.map((file) =>
-      this.cloudinary.uploadChapterImages(
-        file,
-        chapter.id,
-        chapter.mangaId,
+    try {
+      const chapter = await this.chapterService.create(
+        createChapterDto,
         userId,
-      ),
-    );
-    await this.teamChapterService.addChapterForTeam(
-      chapter.id,
-      chapter.mangaId,
-      createChapterDto.teamId,
-    );
-    return chapter;
+      );
+      await files.map((file) =>
+        this.cloudinary.uploadChapterImages(
+          file,
+          chapter.id,
+          chapter.mangaId,
+          userId,
+        ),
+      );
+      if (createChapterDto.teamId) {
+        await this.teamChapterService.addChapterForTeam(
+          chapter.id,
+          chapter.mangaId,
+          createChapterDto.teamId,
+        );
+      }
+
+      return chapter;
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   @Get()

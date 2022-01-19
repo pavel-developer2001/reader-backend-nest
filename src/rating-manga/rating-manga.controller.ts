@@ -20,6 +20,12 @@ export class RatingMangaController {
   constructor(private readonly ratingMangaService: RatingMangaService) {}
 
   @UseGuards(JwtAuthGuard)
+  @Get(':id')
+  findOne(@Param('id') id: string, @User() userId: number) {
+    return this.ratingMangaService.findOne(+id, userId);
+  }
+
+  @UseGuards(JwtAuthGuard)
   @Post('add')
   create(
     @Body() createRatingMangaDto: CreateRatingMangaDto,
@@ -31,11 +37,6 @@ export class RatingMangaController {
   @Get()
   findAll() {
     return this.ratingMangaService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string, @User() userId: number) {
-    return this.ratingMangaService.findOne(+id, userId);
   }
 
   @UseGuards(JwtAuthGuard)

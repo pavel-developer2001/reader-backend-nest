@@ -34,12 +34,13 @@ export class BookMarkController {
     return this.bookMarkService.getAllMarksForUser(+id);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get('/manga/:id')
   async getBookMarkForManga(@Param('id') id: string, @User() userId: number) {
-    console.log('id', id);
     return await this.bookMarkService.getMarkForManga(+id, userId);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Patch('change')
   update(@Body() updateBookMarkDto: UpdateBookMarkDto, @User() userId: number) {
     return this.bookMarkService.update(updateBookMarkDto, userId);

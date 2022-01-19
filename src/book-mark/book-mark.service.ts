@@ -38,10 +38,9 @@ export class BookMarkService {
     return this.repository.find({ where: { user: { id } } });
   }
   async getMarkForManga(id: number, userId: number) {
-    const book = await this.repository.find({
-      where: { id, user: { id: userId } },
+    const book = await this.repository.findOne({
+      where: { manga: { id }, user: { id: userId } },
     });
-    console.log('IDIHVINVDI', book);
     return book;
   }
 

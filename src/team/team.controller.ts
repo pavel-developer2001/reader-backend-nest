@@ -37,6 +37,15 @@ export class TeamController {
     private cloudinary: CloudinaryService,
   ) {}
 
+  @Get('user/:id')
+  async getAllTeamForUser(@Param('id') id: number) {
+    try {
+      return await this.teamMemberService.getTeams(id);
+    } catch (error) {
+      console.error('IHDIHVDIHVIDI', error);
+    }
+  }
+
   @UseGuards(JwtAuthGuard)
   @Post('add')
   @UseInterceptors(FileInterceptor('teamCover'))
@@ -58,15 +67,6 @@ export class TeamController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.teamService.findOne(+id);
-  }
-
-  @Get('user')
-  async getAllTeamForUser(@User() userId: number) {
-    try {
-      return await this.teamMemberService.getTeams(userId);
-    } catch (error) {
-      console.error('IHDIHVDIHVIDI', error);
-    }
   }
 
   @UseGuards(JwtAuthGuard)
