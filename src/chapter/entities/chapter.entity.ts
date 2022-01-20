@@ -1,3 +1,4 @@
+import { ImagesChapterEntity } from 'src/images-chapter/entities/images-chapter.entity';
 import { MangaEntity } from 'src/manga/entities/manga.entity';
 import { UserEntity } from 'src/user/entities/user.entity';
 import {
@@ -7,6 +8,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ManyToOne,
+  OneToMany,
 } from 'typeorm';
 
 @Entity({ name: 'chapters', schema: 'public' })

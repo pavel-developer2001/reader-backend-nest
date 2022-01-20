@@ -11,14 +11,11 @@ export class TeamInvitationService {
     @InjectRepository(TeamInvitationEntity)
     private repository: Repository<TeamInvitationEntity>,
   ) {}
-  async create(
-    createTeamInvitationDto: CreateTeamInvitationDto,
-    userId: number,
-  ) {
+  async create(createTeamInvitationDto: CreateTeamInvitationDto) {
     const candidate = await this.repository.findOne({
       where: {
         rank: createTeamInvitationDto.rank,
-        user: { id: userId },
+        user: { id: createTeamInvitationDto.userId },
         team: { id: createTeamInvitationDto.teamId },
       },
     });
@@ -31,7 +28,7 @@ export class TeamInvitationService {
     const addInvitation = await this.repository.save({
       rank: createTeamInvitationDto.rank,
       team: { id: createTeamInvitationDto.teamId },
-      user: { id: userId },
+      user: { id: createTeamInvitationDto.userId },
     });
     return this.repository.findOne({ where: { id: addInvitation.id } });
   }

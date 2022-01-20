@@ -47,9 +47,15 @@ export class TeamService {
     });
     const mangas = await this.teamMangaRepository.find({
       where: { team: { id: team.id } },
+      order: {
+        id: 'DESC',
+      },
     });
     const chapters = await this.teamChapterRepository.find({
       where: { team: { id: team.id } },
+      order: {
+        id: 'DESC',
+      },
     });
     return { team, members, mangas, chapters };
   }

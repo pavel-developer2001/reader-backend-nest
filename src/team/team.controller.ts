@@ -88,9 +88,8 @@ export class TeamController {
   @Post('invitation/add')
   invitationInTeamForUser(
     @Body() createTeamInvitationDto: CreateTeamInvitationDto,
-    @User() userId: number,
   ) {
-    return this.teamInvitationService.create(createTeamInvitationDto, userId);
+    return this.teamInvitationService.create(createTeamInvitationDto);
   }
 
   @Get('invitation/user/:id')
@@ -100,14 +99,8 @@ export class TeamController {
 
   @UseGuards(JwtAuthGuard)
   @Post('invitation/user/join')
-  async agreeToJoinInTeam(
-    @Body() joinToTeamDto: JoinToTeamDto,
-    @User() userId: number,
-  ) {
-    const newMember = await this.teamMemberService.joinToTeam(
-      joinToTeamDto,
-      userId,
-    );
+  async agreeToJoinInTeam(@Body() joinToTeamDto: JoinToTeamDto) {
+    const newMember = await this.teamMemberService.joinToTeam(joinToTeamDto);
     const deleteInvitation = await this.teamInvitationService.removeInvitation(
       joinToTeamDto.invitationId,
     );

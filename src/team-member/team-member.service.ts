@@ -32,10 +32,10 @@ export class TeamMemberService {
     }
   }
 
-  async joinToTeam(joinToTeamDto: JoinToTeamDto, userId: number) {
+  async joinToTeam(joinToTeamDto: JoinToTeamDto) {
     const addMember = await this.repository.save({
       roleInTeam: joinToTeamDto.rank,
-      user: { id: userId },
+      user: { id: joinToTeamDto.userId },
       team: { id: joinToTeamDto.teamId },
     });
     return this.repository.findOne({ where: { id: addMember.id } });

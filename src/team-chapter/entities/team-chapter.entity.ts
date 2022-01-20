@@ -11,7 +11,7 @@ import {
   ManyToOne,
 } from 'typeorm';
 
-@Entity({ name: 'team-chapters', schema: 'public' })
+@Entity({ name: 'teams-chapters', schema: 'public' })
 export class TeamChapterEntity {
   @PrimaryGeneratedColumn()
   id: number;
@@ -22,7 +22,7 @@ export class TeamChapterEntity {
   @ManyToOne(() => MangaEntity, { eager: true })
   manga: MangaEntity;
 
-  @ManyToOne(() => ChapterEntity, { eager: true })
+  @ManyToOne(() => ChapterEntity, { eager: false })
   chapter: ChapterEntity;
 
   @CreateDateColumn({ type: 'timestamp' })

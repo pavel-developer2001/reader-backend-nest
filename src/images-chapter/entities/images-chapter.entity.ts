@@ -18,13 +18,13 @@ export class ImagesChapterEntity {
   @Column()
   imageChapter: string;
 
-  @ManyToOne(() => UserEntity, { eager: true })
+  @ManyToOne(() => UserEntity, { eager: false })
   user: UserEntity;
 
   @ManyToOne(() => MangaEntity, { eager: true })
   manga: MangaEntity;
 
-  @ManyToOne(() => ChapterEntity, { eager: true })
+  @ManyToOne(() => ChapterEntity, { eager: false })
   chapter: ChapterEntity;
 
   @CreateDateColumn({ type: 'timestamp' })
