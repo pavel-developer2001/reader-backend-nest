@@ -29,6 +29,7 @@ export class ChapterService {
       order: {
         id: 'DESC',
       },
+      relations: ['manga'],
     });
   }
 
