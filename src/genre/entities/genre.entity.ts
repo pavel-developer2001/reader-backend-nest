@@ -8,7 +8,7 @@ import {
   ManyToMany,
 } from 'typeorm';
 
-@Entity('genres')
+@Entity({ name: 'genres' })
 export class GenreEntity {
   @PrimaryGeneratedColumn()
   id: number;
@@ -25,4 +25,3 @@ export class GenreEntity {
   @UpdateDateColumn({ type: 'timestamp' })
   updatedAt: Date;
 }
-

@@ -56,6 +56,10 @@ export class TeamController {
   ) {
     const newTeam = await this.teamService.create(createTeamDto, userId);
     await this.cloudinary.uploadTeamCover(file, newTeam.id);
+    await this.teamMemberService.addMemberForCreateTeam(
+      newTeam.id,
+      newTeam.user.id,
+    );
     return this.teamService.findOne(newTeam.id);
   }
 

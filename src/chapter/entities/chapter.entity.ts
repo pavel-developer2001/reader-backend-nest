@@ -9,7 +9,7 @@ import {
   ManyToOne,
 } from 'typeorm';
 
-@Entity('chapters')
+@Entity({ name: 'chapters', schema: 'public' })
 export class ChapterEntity {
   @PrimaryGeneratedColumn()
   id: number;

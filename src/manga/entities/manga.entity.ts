@@ -12,7 +12,7 @@ import {
   JoinTable,
 } from 'typeorm';
 
-@Entity('mangas')
+@Entity({ name: 'mangas' })
 export class MangaEntity {
   @PrimaryGeneratedColumn()
   id: number;

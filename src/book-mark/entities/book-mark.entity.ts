@@ -9,7 +9,7 @@ import {
   ManyToOne,
 } from 'typeorm';
 
-@Entity('book-marks')
+@Entity({ name: 'book-marks' })
 export class BookMarkEntity {
   @PrimaryGeneratedColumn()
   id: number;

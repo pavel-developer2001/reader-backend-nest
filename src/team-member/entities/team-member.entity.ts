@@ -9,7 +9,7 @@ import {
   ManyToOne,
 } from 'typeorm';
 
-@Entity('team-members')
+@Entity({ name: 'team-members', schema: 'public' })
 export class TeamMemberEntity {
   @PrimaryGeneratedColumn()
   id: number;

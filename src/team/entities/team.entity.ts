@@ -8,7 +8,7 @@ import {
   ManyToOne,
 } from 'typeorm';
 
-@Entity('teams')
+@Entity({ name: 'teams', schema: 'public' })
 export class TeamEntity {
   @PrimaryGeneratedColumn()
   id: number;

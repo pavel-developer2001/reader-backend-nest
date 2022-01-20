@@ -11,7 +11,7 @@ import {
   ManyToOne,
 } from 'typeorm';
 
-@Entity('team-chapters')
+@Entity({ name: 'team-chapters', schema: 'public' })
 export class TeamChapterEntity {
   @PrimaryGeneratedColumn()
   id: number;

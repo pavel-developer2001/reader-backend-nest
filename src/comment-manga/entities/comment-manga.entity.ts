@@ -9,7 +9,7 @@ import {
   ManyToOne,
 } from 'typeorm';
 
-@Entity('comment-mangas')
+@Entity({ name: 'comment-mangas' })
 export class CommentMangaEntity {
   @PrimaryGeneratedColumn()
   id: number;

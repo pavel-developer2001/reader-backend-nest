@@ -8,11 +8,14 @@ import { CloudinaryModule } from 'src/cloudinary/cloudinary.module';
 import { TeamMemberModule } from 'src/team-member/team-member.module';
 import { TeamMangaModule } from 'src/team-manga/team-manga.module';
 import { TeamInvitationModule } from 'src/team-invitation/team-invitation.module';
+import { TeamChapterEntity } from 'src/team-chapter/entities/team-chapter.entity';
+import { TeamMangaEntity } from 'src/team-manga/entities/team-manga.entity';
+import { TeamMemberEntity } from 'src/team-member/entities/team-member.entity';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ envFilePath: '.env', isGlobal: true }),
-    TypeOrmModule.forFeature([TeamEntity]),
+    TypeOrmModule.forFeature([TeamEntity,TeamChapterEntity,TeamMangaEntity,TeamMemberEntity]),
     forwardRef(() => CloudinaryModule),
     TeamMemberModule,
     TeamMangaModule,

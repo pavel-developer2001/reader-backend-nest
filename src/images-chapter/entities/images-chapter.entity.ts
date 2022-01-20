@@ -10,7 +10,7 @@ import {
   ManyToOne,
 } from 'typeorm';
 
-@Entity('images-chapters')
+@Entity({ name: 'images-chapters' })
 export class ImagesChapterEntity {
   @PrimaryGeneratedColumn()
   id: number;

@@ -20,6 +20,18 @@ export class TeamMemberService {
     }
   }
 
+  async addMemberForCreateTeam(teamId: number, userId: number) {
+    try {
+      return await this.repository.save({
+        team: { id: teamId },
+        user: { id: userId },
+        roleInTeam: 'Глава',
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   async joinToTeam(joinToTeamDto: JoinToTeamDto, userId: number) {
     const addMember = await this.repository.save({
       roleInTeam: joinToTeamDto.rank,
