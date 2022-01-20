@@ -26,6 +26,7 @@ export class ImagesChapterService {
   async getImages(id: string) {
     const images = await this.repository.find({
       where: { chapter: { id: id } },
+      relations: ['chapter'],
     });
     return images;
   }

@@ -11,7 +11,7 @@ import {
   OneToMany,
 } from 'typeorm';
 
-@Entity({ name: 'chapters', schema: 'public' })
+@Entity({ name: 'chapters' })
 export class ChapterEntity {
   @PrimaryGeneratedColumn()
   id: number;
@@ -34,11 +34,14 @@ export class ChapterEntity {
   @ManyToOne(() => UserEntity, { eager: true })
   user: UserEntity;
 
-  @ManyToOne(() => MangaEntity, { eager: true })
+  @ManyToOne(() => MangaEntity)
   manga: MangaEntity;
 
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;
+
+  @OneToMany(() => ImagesChapterEntity, (imageChapter) => imageChapter.chapter)
+  imageChapters: ImagesChapterEntity[];
 
   @UpdateDateColumn({ type: 'timestamp' })
   updatedAt: Date;

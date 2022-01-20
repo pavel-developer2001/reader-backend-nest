@@ -41,6 +41,12 @@ export class ChapterService {
     });
   }
 
+  async findChapter(id: string) {
+    const chapter = await this.repository.findOne({ where: { id } });
+    console.log('CHAPTER', chapter);
+    return chapter;
+  }
+
   update(id: number, updateChapterDto: UpdateChapterDto) {
     return `This action updates a #${id} chapter`;
   }

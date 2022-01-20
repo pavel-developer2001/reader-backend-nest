@@ -1,3 +1,4 @@
+import { channel } from 'diagnostics_channel';
 import { ChapterEntity } from 'src/chapter/entities/chapter.entity';
 import { MangaEntity } from 'src/manga/entities/manga.entity';
 import { UserEntity } from 'src/user/entities/user.entity';
@@ -24,7 +25,7 @@ export class ImagesChapterEntity {
   @ManyToOne(() => MangaEntity, { eager: true })
   manga: MangaEntity;
 
-  @ManyToOne(() => ChapterEntity, { eager: false })
+  @ManyToOne(() => ChapterEntity, (chapter) => chapter.imageChapters)
   chapter: ChapterEntity;
 
   @CreateDateColumn({ type: 'timestamp' })

@@ -56,6 +56,7 @@ export class TeamService {
       order: {
         id: 'DESC',
       },
+      relations: ['chapter'],
     });
     return { team, members, mangas, chapters };
   }
