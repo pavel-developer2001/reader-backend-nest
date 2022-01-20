@@ -24,6 +24,7 @@ export class RatingMangaService {
     }
     return this.repository.save({
       ...createRatingMangaDto,
+      manga: { id: createRatingMangaDto.mangaId },
       user: { id: userId },
     });
   }
@@ -38,23 +39,22 @@ export class RatingMangaService {
     });
   }
 
-  async update(
-    id: string,
-    updateRatingMangaDto: UpdateRatingMangaDto,
-    userId: number,
-  ) {
-    const findRating = await this.repository.find({
+  async update(updateRatingMangaDto: UpdateRatingMangaDto, userId: number) {
+    const findRating = await this.repository.findOne({
       where: {
-        id,
+        manga: {
+          id: updateRatingMangaDto.mangaId,
+          rating: updateRatingMangaDto.rating,
+        },
       },
     });
-    if (findRating.length > 0) {
-      await this.repository.update(id, {
+    if (findRating) {
+      await this.repository.update(findRating.id, {
         rating: updateRatingMangaDto.rating,
         manga: { id: updateRatingMangaDto.mangaId },
         user: { id: userId },
       });
-      return await this.repository.findOne({ where: { id } });
+      return await this.repository.findOne({ where: { id: findRating.id } });
     }
     return 'Вы не можете обновить рейтинг';
   }

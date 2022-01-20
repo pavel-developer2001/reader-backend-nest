@@ -40,13 +40,12 @@ export class RatingMangaController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Patch('update/:id')
+  @Patch('update')
   update(
-    @Param('id') id: string,
     @Body() updateRatingMangaDto: UpdateRatingMangaDto,
     @User() userId: number,
   ) {
-    return this.ratingMangaService.update(id, updateRatingMangaDto, userId);
+    return this.ratingMangaService.update(updateRatingMangaDto, userId);
   }
 
   @Delete(':id')
