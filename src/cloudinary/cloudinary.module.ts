@@ -8,7 +8,7 @@ import { CloudinaryService } from './cloudinary.service';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ envFilePath: '.env', isGlobal: true }),
+    ConfigModule,
     forwardRef(() => MangaModule),
     forwardRef(() => TeamModule),
     ImagesChapterModule,
