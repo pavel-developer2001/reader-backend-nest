@@ -5,6 +5,7 @@ import { TagService } from 'src/tag/tag.service';
 import { UserService } from 'src/user/user.service';
 import { getConnection, Repository } from 'typeorm';
 import { CreateMangaDto } from './dto/create-manga.dto';
+import { SearchMangaDto } from './dto/search-manga.dto';
 import { UpdateMangaDto } from './dto/update-manga.dto';
 import { MangaEntity } from './entities/manga.entity';
 
@@ -72,6 +73,24 @@ export class MangaService {
 
   findOne(id: number) {
     return this.repository.findOne(id);
+  }
+
+  async search(dto: SearchMangaDto) {
+    const qb = this.repository.createQueryBuilder('p');
+
+    qb.leftJoinAndSelect('p.user', 'user');
+
+    if (dto.title) {
+      qb.andWhere(`p.title ILIKE :title`);
+    }
+
+    qb.setParameters({
+      title: `%${dto.title}%`,
+    });
+
+    const items = await qb.getMany();
+
+    return items;
   }
 
   update(id: number, updateMangaDto: UpdateMangaDto) {
