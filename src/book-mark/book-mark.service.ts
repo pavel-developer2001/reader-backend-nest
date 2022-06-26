@@ -44,6 +44,14 @@ export class BookMarkService {
     return book;
   }
 
+  async count(id: string) {
+    const marks = await this.repository
+      .createQueryBuilder()
+      .where({ manga: { id } });
+
+    return await marks.getCount();
+  }
+
   async update(updateBookMarkDto: UpdateBookMarkDto, userId: number) {
     await this.repository.update(
       { manga: { id: updateBookMarkDto.mangaId }, user: { id: userId } },

@@ -34,6 +34,11 @@ export class BookMarkController {
     return this.bookMarkService.getAllMarksForUser(+id);
   }
 
+  @Get('/count/:id')
+  countMarks(@Param('id') id: string) {
+    return this.bookMarkService.count(id);
+  }
+
   @UseGuards(JwtAuthGuard)
   @Get('/manga/:id')
   async getBookMarkForManga(@Param('id') id: string, @User() userId: number) {
