@@ -59,6 +59,11 @@ export class RatingMangaService {
     return 'Вы не можете обновить рейтинг';
   }
 
+  async count(id: number) {
+    const qb = this.repository.createQueryBuilder().where({ manga: { id } });
+    return await qb.getCount();
+  }
+
   remove(id: number) {
     return `This action removes a #${id} ratingManga`;
   }

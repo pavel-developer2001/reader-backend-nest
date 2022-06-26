@@ -25,6 +25,11 @@ export class RatingMangaController {
     return this.ratingMangaService.findOne(+id, userId);
   }
 
+  @Get('/count/:id')
+  countRatings(@Param('id') id: string){
+    return this.ratingMangaService.count(+id)
+  }
+
   @UseGuards(JwtAuthGuard)
   @Post('add')
   create(
