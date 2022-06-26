@@ -71,7 +71,9 @@ export class MangaService {
     return this.repository.find();
   }
 
-  findOne(id: number) {
+  async findOne(id: number) {
+    const item = await this.repository.findOne(id);
+    await this.repository.update(id, { watchCount: item.watchCount + 1 });
     return this.repository.findOne(id);
   }
 
