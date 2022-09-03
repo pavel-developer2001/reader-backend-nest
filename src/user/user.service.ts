@@ -13,27 +13,23 @@ export class UserService {
     private repository: Repository<UserEntity>,
   ) {}
   async create(registerUserDto: RegisterUserDto) {
-    try {
-      const findUser = await this.repository.findOne({
-        where: { email: registerUserDto.email },
-      });
-      if (findUser) {
-        throw new HttpException(
-          'Пользователь с таким email уже создан',
-          HttpStatus.FORBIDDEN,
-        );
-      }
-      const hashPassword = await bcrypt.hash(registerUserDto.password, 5);
-      const user = await this.repository.save({
-        name: registerUserDto.name,
-        email: registerUserDto.email,
-        password: hashPassword,
-      });
-      const { password, ...userData } = user;
-      return userData;
-    } catch (error) {
-      console.error(error);
+    const findUser = await this.repository.findOne({
+      where: { email: registerUserDto.email },
+    });
+    if (findUser) {
+      throw new HttpException(
+        'Пользователь с таким email уже создан',
+        HttpStatus.FORBIDDEN,
+      );
     }
+    const hashPassword = await bcrypt.hash(registerUserDto.password, 5);
+    const user = await this.repository.save({
+      name: registerUserDto.name,
+      email: registerUserDto.email,
+      password: hashPassword,
+    });
+    const { password, ...userData } = user;
+    return userData;
   }
 
   findAll() {
